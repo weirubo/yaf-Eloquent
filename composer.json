@@ -1,0 +1,13 @@
+{
+	"require": {
+		"php": ">=7.1.7",
+		"illuminate/database": "5.5.*",
+		"illuminate/events": "5.5.*"
+	
+	},
+	"autoload": {
+		"psr-4": {
+			"App\\Models\\": "application/models"
+		}
+	}
+}
