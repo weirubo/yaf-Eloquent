@@ -5,6 +5,16 @@ class IndexController extends Yaf_Controller_Abstract {
 	public function init() {
 		Yaf_Dispatcher::getInstance()->disableView();
 	}
+	// 运行原生SQL查询
+	public function selectAction() {
+		$users = DB::select('select * from user where id=1');
+		var_dump($users);
+	}
+	// 查询构造器
+	public function selAction() {
+		$users = DB::table('user')->get();
+		var_dump($users);
+	}
 	// 取回多个模型 
 	public function indexAction() {
 		$users = User::all()->toArray();
