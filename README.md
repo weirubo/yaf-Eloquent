@@ -22,6 +22,10 @@ phpize
 make
 sudo make install
 ```
+# Eloquent ORM 安装
+```
+composer install
+```
 # 重写规则
 ```
 #for apache (.htaccess)
