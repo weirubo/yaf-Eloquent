@@ -1,4 +1,8 @@
+# Yaf简介
+* The Yet Another Framework (Yaf) 扩展是一个用来开发web应用的php框架。
+* Yaf需要5.2.1及以上版本PHP，早期版本可能不能正常工作。
 # yaf-Eloquent
+* Yaf框架集成Eloquent ORM
 # 运行环境
 * Linux
 * Nginx
