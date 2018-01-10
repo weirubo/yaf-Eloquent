@@ -4,10 +4,10 @@
 # yaf-Eloquent
 * Yaf框架集成Eloquent ORM
 # 运行环境
-* Linux
-* Nginx
+* Linux / Windows
+* Nginx / Apcahe / Lighttpd
 * MySQL
-* PHP
+* PHP >= 5.2.1
 # ORM
 * Eloquent ORM
 # 扩展
