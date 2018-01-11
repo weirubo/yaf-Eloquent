@@ -5,6 +5,12 @@ class IndexController extends Yaf_Controller_Abstract {
 	public function init() {
 		Yaf_Dispatcher::getInstance()->disableView();
 	}
+	// redis
+	public function testRedisAction() {
+		$redis = new PhpRedis();
+		$redis->set();
+		$redis->get();
+	}
 	// 运行原生SQL查询
 	public function selectAction() {
 		$users = DB::select('select * from user where id=1');

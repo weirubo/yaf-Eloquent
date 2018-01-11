@@ -30,5 +30,9 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 
 		class_alias('\Illuminate\Database\Capsule\Manager', 'DB');
 	}
+	public function _initPlugin(Yaf_Dispatcher $dispatcher) {
+		$default = new defaultPlugin();
+		$dispatcher->registerPlugin($default);
+	}
 }
 
