@@ -5,6 +5,12 @@ class IndexController extends Yaf_Controller_Abstract {
 	public function init() {
 		Yaf_Dispatcher::getInstance()->disableView();
 	}
+	// session
+	public function testSessionAction() {
+		session_start();
+		$_SESSION['age'] = '18';
+		var_dump($_SESSION);
+	}
 	// redis
 	public function testRedisAction() {
 		$redis = new PhpRedis();
