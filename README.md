@@ -12,6 +12,7 @@
 * Eloquent ORM
 # 扩展
 * Yaf
+* phpredis
 # Yaf安装
 ```
 Yaf can be installed from source code by:
@@ -21,6 +22,12 @@ phpize
 ./configure
 make
 sudo make install
+```
+# phpredis安装
+```
+phpize
+./configure [--enable-redis-igbinary]
+make && make install
 ```
 # Eloquent ORM 安装
 ```
