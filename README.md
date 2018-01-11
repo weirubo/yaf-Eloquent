@@ -6,13 +6,13 @@
 # 运行环境
 * Linux / Windows
 * Nginx / Apcahe / Lighttpd
-* MySQL
-* PHP >= 5.2.1
+* MySQL >= 5.7
+* PHP >= 7.1.7
 # ORM
-* Eloquent ORM
+* Eloquent ORM >= 5.5.0
 # 扩展
-* Yaf
-* phpredis
+* Yaf >= 3.0.4
+* phpredis >= 3.1.6
 # Yaf安装
 ```
 Yaf can be installed from source code by:

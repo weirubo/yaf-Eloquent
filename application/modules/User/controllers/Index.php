@@ -8,7 +8,7 @@ class IndexController extends Yaf_Controller_Abstract {
 	// session
 	public function testSessionAction() {
 		session_start();
-		$_SESSION['age'] = '18';
+		$_SESSION['sex'] = 'man';
 		var_dump($_SESSION);
 	}
 	// redis
