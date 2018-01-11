@@ -16,6 +16,16 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
                 $this->config = Yaf_Application::app()->getConfig();
                 Yaf_Registry::set("config", $this->config);
         }
+	
+	public function _initSession() {
+		$config = Yaf_Registry::get('config');
+		$saveHandler = $config->session->toArray();
+		if($saveHandler['save_handler'] == 'redis') {
+			ini_set('session.save_handler', 'redis');
+			$path = $config->redis->toArray();
+			ini_set('session.save_path', 'tcp://' . $path['host'] . ':' . $path['port']);
+		}
+	}
 
         public function _initDefaultName(Yaf_Dispatcher $dispatcher) {
                 $dispatcher->setDefaultModule("Index")->setDefaultController("Index")->setDefaultAction("index");
