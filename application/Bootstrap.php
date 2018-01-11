@@ -23,7 +23,7 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 		if($saveHandler['save_handler'] == 'redis') {
 			ini_set('session.save_handler', 'redis');
 			$path = $config->redis->toArray();
-			ini_set('session.save_path', 'tcp://' . $path['host'] . ':' . $path['port']);
+			ini_set('session.save_path', 'tcp://' . $path['host'] . ':' . $path['port'] . '?auth=' . $path['auth']);
 		}
 	}
 
