@@ -15,7 +15,7 @@
 * Yaf >= 3.0.0（建议使用最新版本Yaf3.0.6）
 * phpredis >= 3.1.6 (可选安装)
 # 项目部署步骤
-## Yaf安装
+### Yaf安装
 ```
 Yaf can be installed from source code by:
 
@@ -25,13 +25,13 @@ phpize
 make
 sudo make install
 ```
-## phpredis安装
+### phpredis安装
 ```
 phpize
 ./configure [--enable-redis-igbinary]
 make && make install
 ```
-## 修改php.ini
+### 修改php.ini
 ```
 # 添加以下代码
 [yaf]
@@ -44,21 +44,21 @@ extension=redis.so
 kill -USR2 `cat /usr/local/php/var/run/php-fpm.pid`
 ```
 
-## Eloquent ORM 安装
+### Eloquent ORM 安装
 ```
 # 需要使用函数proc_open,proc_get_status，如禁用，请修改php.ini中disable_functions的值，去除proc_open,proc_get_status，重启php-fpm，重启方法见上。
 # 执行以下代码安装 Eloquent ORM
 composer install
 # 如果未安装composer，请先安装composer再执行`composer install`
-# 安装composer可参考[](http://docs.phpcomposer.com/00-intro.html)
+# 安装composer可参考[]: http://docs.phpcomposer.com/00-intro.html (http://docs.phpcomposer.com/00-intro.html)
 ```
 
-## 导入MySQL数据库test.sql
+### 导入MySQL数据库test.sql
 ```
 source test.sql
 ```
 
-## 重写规则，修改nginx.conf并执行`/usr/local/nginx/sbin/nginx -s reload`
+### 重写规则，修改nginx.conf并执行`/usr/local/nginx/sbin/nginx -s reload`
 ```
 #for apache (.htaccess)
 RewriteEngine On
@@ -85,4 +85,4 @@ $HTTP["host"] =~ "(www.)?domain.com$" {
 }
 ```
 
-## 大功告成O(∩_∩)O哈哈~浏览器访问地址查看，enjoy it.
+### 大功告成O(∩_∩)O哈哈~浏览器访问地址查看，enjoy it.
