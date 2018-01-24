@@ -52,7 +52,7 @@ composer install
 # 如果未安装composer，请先安装composer再执行`composer install`
 ```
 ### 安装composer
-可参考[Composer]: http://docs.phpcomposer.com/00-intro.html
+可参考[Composer][http://docs.phpcomposer.com/00-intro.html]
 ### 导入MySQL数据库test.sql
 ```
 source test.sql
