@@ -12,10 +12,16 @@ class IndexController extends Yaf_Controller_Abstract {
 		var_dump($_SESSION);
 	}
 	// redis
-	public function testRedisAction() {
+	public function setRedisAction() {
+		$params = $this->getRequest()->getParams();
 		$redis = new PhpRedis();
-		$redis->set();
-		$redis->get();
+		$redis->set($params['name'], $params['age'], 3, 10, 1);
+	}
+	public function getRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->get($params['name']);
+		echo $result;
 	}
 	// 运行原生SQL查询
 	public function selectAction() {

@@ -41,10 +41,37 @@ class PhpRedis {
 			exit;
 		}
 	}
-	public function set() {
-		$this->_REDIS->set('name', 'frankphper');
+	/**
+	 * @param $key string
+	 * @param $value string
+	 * @param $type int 0:set,1:setNx,2:append,3:setEx,4:setRange,default 0
+	 * @param $num int ttl or offset
+	 * @param $cover bool 0:no cover,1:cover
+	 */
+	public function set($key, $value, $type=0, $num=0, $cover=0) {
+		switch ($type) {
+			case 0:
+				$result = $this->_REDIS->set($key, $value);
+				break;
+			case 1:
+				$result = $this->_REDIS->setNx($key, $value);
+				break;
+			case 2:
+				$result = $this->_REDIS->append($key, $value);
+				break;
+			case 3:
+				$ttl = $num;
+				if($cover) $result = $this->_REDIS->setEx($key, $ttl, $value);
+				$result = $this->_REDIS->setNx($key, $value);
+				break;
+			case 4:
+				$offset = $num;
+				$result = $this->_REDIS->setRange($key, $offset, $value);
+				break;
+		}
+		return $result;
 	}
-	public function get() {
-		echo $this->_REDIS->get('name');
+	public function get($key) {
+		return $this->_REDIS->get($key);
 	}
 }
