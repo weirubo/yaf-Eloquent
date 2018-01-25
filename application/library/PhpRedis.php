@@ -133,7 +133,7 @@ class PhpRedis {
 	 * @param key string
 	 * @param step int
 	 */
-	public function decr($key, int $step = 1) {
+	public function decr($key, $step = 1) {
 		if($step == 1) {
 			$result = $this->_REDIS->decr($key);
 		} else {
