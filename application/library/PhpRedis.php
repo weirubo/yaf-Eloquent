@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author weirubo
+ * @github https://github.com/weirubo
+ * @date Jan 11, 2018
+ * @version v0.01
+ */
 class PhpRedis {
 	private $_HOST;
 	private $_PORT;
@@ -44,7 +50,7 @@ class PhpRedis {
 	/**
 	 * @param $key string
 	 * @param $value string
-	 * @param $type int 0:set,1:setNx,2:append,3:setEx,4:setRange,default 0
+	 * @param $type int 0:set,1:setNx,2:getSet,3:append,4:setEx,5:setRange,default 0
 	 * @param $num int ttl or offset
 	 * @param $cover bool 0:no cover,1:cover
 	 */
@@ -57,21 +63,36 @@ class PhpRedis {
 				$result = $this->_REDIS->setNx($key, $value);
 				break;
 			case 2:
-				$result = $this->_REDIS->append($key, $value);
+				$result = $this->_REDIS->getSet($key, $value);
 				break;
 			case 3:
+				$result = $this->_REDIS->append($key, $value);
+				break;
+			case 4:
 				$ttl = $num;
 				if($cover) $result = $this->_REDIS->setEx($key, $ttl, $value);
 				$result = $this->_REDIS->setNx($key, $value);
 				break;
-			case 4:
+			case 5:
 				$offset = $num;
 				$result = $this->_REDIS->setRange($key, $offset, $value);
 				break;
 		}
 		return $result;
 	}
-	public function get($key) {
-		return $this->_REDIS->get($key);
+
+	/**
+	 * @param key string || array string:only one key,array:one more key
+	 * @param start int
+	 * @param $end int
+	 */
+	public function get($key, $start, $end) {
+		if(isset($key) && is_array($key)) {
+			$result = $this->_REDIS->mGet($key);
+		} else {
+			if(isset($start) && isset($end)) $result = $this->_REDIS->getRange($key, $start, $end);
+			$result = $this->_REDIS->get($key);
+		}
+		return $result;
 	}
 }
