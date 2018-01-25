@@ -3,7 +3,7 @@
 * Yaf需要5.2.1及以上版本PHP，早期版本可能不能正常工作。
 * PHP7+需要使用Yaf3.0.0+版本。
 # yaf-Eloquent简介
-* Yaf框架集成Eloquent ORM
+* Yaf框架集成Eloquent ORM，感兴趣的同学可以一起完善。
 # 运行环境
 * Linux / Windows
 * Nginx / Apcahe / Lighttpd
@@ -57,8 +57,9 @@ composer install
 ```
 source test.sql
 ```
-
-### 重写规则，修改nginx.conf并执行`/usr/local/nginx/sbin/nginx -s reload`
+### 修改nginx配置文件
+按照下方重写规则修改nginx配置文件并执行`/usr/local/nginx/sbin/nginx -s reload`
+### 重写规则
 ```
 #for apache (.htaccess)
 RewriteEngine On
