@@ -15,13 +15,19 @@ class IndexController extends Yaf_Controller_Abstract {
 	public function setRedisAction() {
 		$params = $this->getRequest()->getParams();
 		$redis = new PhpRedis();
-		$result = $redis->set($params['name'], $params['age'], 5, 1 );
+		$result = $redis->set($params['name'], $params['age'] );
 		echo $result;
 	}
 	public function getRedisAction() {
 		$params = $this->getRequest()->getParams();
 		$redis = new PhpRedis();
 		$result = $redis->get($params['name']);
+		echo $result;
+	}
+	public function delRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->del($params['name']);
 		echo $result;
 	}
 	// 运行原生SQL查询
