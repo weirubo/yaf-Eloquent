@@ -30,6 +30,25 @@ class IndexController extends Yaf_Controller_Abstract {
 		$result = $redis->del($params['name']);
 		echo $result;
 	}
+	public function msetRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->mset($params);
+		echo $result;
+	}
+	public function incrRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->incr($params['name'], $params['step']);
+		echo $result;
+	}
+	public function decrRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$step = isset($params['step']) ? $params['step'] : 1;
+		$redis = new PhpRedis();
+		$result = $redis->decr($params['name'], $step);
+		echo $result;
+	}
 	// 运行原生SQL查询
 	public function selectAction() {
 		$users = DB::select('select * from user where id=1');
