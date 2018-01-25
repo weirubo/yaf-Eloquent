@@ -96,4 +96,12 @@ class PhpRedis {
 		}
 		return $result;
 	}
+
+	/**
+	 * @param key array || string array:one more key,string:only one key
+	 */
+	public function del($key = []) {
+		$result = $this->_REDIS->delete($key);
+		return $result;	
+	}
 }
