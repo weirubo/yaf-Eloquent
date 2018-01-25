@@ -104,4 +104,41 @@ class PhpRedis {
 		$result = $this->_REDIS->delete($key);
 		return $result;	
 	}
+	
+	/**
+	 * @param key array || string array:one more key,string:only one key
+	 * @param cover int 0:mSetNx,1:mSet
+	 */
+	public function mset($key = [], $cover = 0) {
+		if(count($key) > 1 && array_key_exists('cover', $key) && $key['cover'] > 0) $result = $this->_REDIS->mSet($key);
+		$result = $this->_REDIS->mSetNx($key);
+		return $result;
+	}
+
+	/**
+	 * @param key string
+	 * @param step int || float
+	 */
+	public function incr($key, $step = 1) {
+		if($step != 1) {
+			if(!is_float($step)) $result = $this->_REDIS->incrBy($key, $step);
+			$result = $this->_REDIS->incrByFloat($key, $step);
+		} else {
+			$result = $this->_REDIS->incr($key);
+		}
+		return $result;
+	}
+	
+	/**
+	 * @param key string
+	 * @param step int
+	 */
+	public function decr($key, int $step = 1) {
+		if($step == 1) {
+			$result = $this->_REDIS->decr($key);
+		} else {
+			$result = $this->_REDIS->decrBy($key, $step);
+		}
+		return $result;
+	}
 }
