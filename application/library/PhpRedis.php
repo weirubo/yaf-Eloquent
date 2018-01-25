@@ -86,7 +86,8 @@ class PhpRedis {
 	 * @param start int
 	 * @param $end int
 	 */
-	public function get($key, $start, $end) {
+	public function get($key = null, $start = null, $end = null) {
+		if($key == null) $result = null;
 		if(isset($key) && is_array($key)) {
 			$result = $this->_REDIS->mGet($key);
 		} else {

@@ -15,7 +15,8 @@ class IndexController extends Yaf_Controller_Abstract {
 	public function setRedisAction() {
 		$params = $this->getRequest()->getParams();
 		$redis = new PhpRedis();
-		$redis->set($params['name'], $params['age'], 3, 10, 1);
+		$result = $redis->set($params['name'], $params['age'], 5, 1 );
+		echo $result;
 	}
 	public function getRedisAction() {
 		$params = $this->getRequest()->getParams();
