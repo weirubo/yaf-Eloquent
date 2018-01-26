@@ -73,6 +73,36 @@ class IndexController extends Yaf_Controller_Abstract {
 		$result = $redis->exists($params['name']);
 		echo $result;
 	}
+	public function expireRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->expire($params['name'], $params['ttl']);
+		echo $result;
+	}
+	public function renameRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->rename($params['name'], $params['newname'], $params['cover']);
+		echo $result;
+	}
+	public function randomkeyRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->randomkey();
+		echo $result;
+	}
+	public function persistRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->persist($params['name']);
+		echo $result;
+	}
+	public function typeRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->type($params['name']);
+		var_dump($result);
+	}
 	// 运行原生SQL查询
 	public function selectAction() {
 		$users = DB::select('select * from user where id=1');
