@@ -102,8 +102,7 @@ class PhpRedis {
 	 * @return Long Number of keys deleted.
 	 */
 	public function del($key = []) {
-		$result = $this->_REDIS->delete($key);
-		return $result;	
+		return $this->_REDIS->delete($key);
 	}
 	
 	/**
@@ -138,12 +137,8 @@ class PhpRedis {
 	 * @return INT the new value
 	 */
 	public function decr($key, $step = 1) {
-		if($step == 1) {
-			$result = $this->_REDIS->decr($key);
-		} else {
-			$result = $this->_REDIS->decrBy($key, $step);
-		}
-		return $result;
+		if($step == 1) return $this->_REDIS->decr($key);
+		return $this->_REDIS->decrBy($key, $step);
 	}
 
 	/**
@@ -151,8 +146,7 @@ class PhpRedis {
 	 * @return INTEGER
 	 */
 	public function strlen($key) {
-		$result = $this->_REDIS->strlen($key);
-		return $result;
+		return $this->_REDIS->strlen($key);
 	}
 
 	/**
@@ -160,8 +154,7 @@ class PhpRedis {
 	 * @return Array of STRING: The keys that match a certain pattern.
 	 */
 	public function keys($key) {
-		$result = $this->_REDIS->keys($key);
-		return $result;
+		return $this->_REDIS->keys($key);
 	}
 
 	/**
@@ -169,8 +162,7 @@ class PhpRedis {
 	 * @return LONG: The time to live in seconds. If the key has no ttl, -1 will be returned, and -2 if the key doesn't exist.
 	 */
 	public function ttl($key) {
-		$result = $this->_REDIS->ttl($key);
-		return $result;
+		return $this->_REDIS->ttl($key);
 	}
 
 	/**
@@ -178,7 +170,50 @@ class PhpRedis {
 	 * @return BOOL: If the key exists, return TRUE, otherwise return FALSE.
 	 */
 	public function exists($key) {
-		$result = $this->_REDIS->exists($key);
+		return $this->_REDIS->exists($key);
+	}
+	
+	/**
+	 * @param key int 
+	 * @param ttl int seconds || Unix timestamp
+	 * @param BOOL: TRUE in case of success, FALSE in case of failure.
+	 */
+	public function expire($key, $ttl = 0) {
+		if (strlen($ttl) >= 10) return $this->_REDIS->expireAt($key, $ttl);
+		return $this->_REDIS->expire($key, $ttl);
+	}
+	/**
+	 * @param srckey string
+	 * @param dstkey string
+	 * @param cover int 0:cover, 1:no cover
+	 */
+	public function rename($srckey, $dstkey, $cover = 0) {
+		if($cover) $result = $this->_REDIS->rename($srckey, $dstkey);
+		$result = $this->_REDIS->renameNx($srckey, $dstkey);
 		return $result;
+	}
+	
+	/**
+	 * @param None
+	 * @return STRING: an existing key in redis.
+	 */
+	public function randomkey() {
+		return $this->_REDIS->randomkey();
+	}
+
+	/**
+	 * @param key string
+	 * @return BOOL: TRUE if a timeout was removed, FALSE if the key didn’t exist or didn’t have an expiration timer.
+	 */
+	public function persist($key) {
+		return $this->_REDIS->persist($key);	
+	}
+
+	/**
+	 * @param key string
+	 * @return value 0:none,1:string,2:set,3:list,4:zset,5:hash
+	 */
+	public function type($key) {
+		return $this->_REDIS->type($key);
 	}
 }
