@@ -1,8 +1,8 @@
 <?php
 /**
  * @author weirubo
- * @github https://github.com/weirubo
- * @date Jan 11, 2018
+ * @link https://github.com/weirubo
+ * @copyright Jan 11, 2018 - Dec 31, 2099
  * @version v0.01
  */
 class PhpRedis {
@@ -139,6 +139,37 @@ class PhpRedis {
 		} else {
 			$result = $this->_REDIS->decrBy($key, $step);
 		}
+		return $result;
+	}
+
+	/**
+	 * @param key sting
+	 */
+	public function strlen($key) {
+		$result = $this->_REDIS->strlen($key);
+		return $result;
+	}
+
+	/**
+	 * @params key string STRING: pattern, using '*' as a wildcard.
+	 * @return Array of STRING: The keys that match a certain pattern.
+	 */
+	public function keys($key) {
+		$result = $this->_REDIS->keys($key);
+		return $result;
+	}
+
+	/**
+	 * @param key string
+	 * @return LONG: The time to live in seconds. If the key has no ttl, -1 will be returned, and -2 if the key doesn't exist.
+	 */
+	public function ttl($key) {
+		$result = $this->_REDIS->ttl($key);
+		return $result;
+	}
+
+	public function exists($key) {
+		$result = $this->_REDIS->exists($key);
 		return $result;
 	}
 }
