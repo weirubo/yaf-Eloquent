@@ -99,6 +99,7 @@ class PhpRedis {
 
 	/**
 	 * @param key array || string array:one more key,string:only one key
+	 * @return Long Number of keys deleted.
 	 */
 	public function del($key = []) {
 		$result = $this->_REDIS->delete($key);
@@ -108,6 +109,7 @@ class PhpRedis {
 	/**
 	 * @param key array || string array:one more key,string:only one key
 	 * @param cover int 0:mSetNx,1:mSet
+	 * @param Bool TRUE in case of success, FALSE in case of failure.
 	 */
 	public function mset($key = [], $cover = 0) {
 		if(count($key) > 1 && array_key_exists('cover', $key) && $key['cover'] > 0) $result = $this->_REDIS->mSet($key);
@@ -118,6 +120,7 @@ class PhpRedis {
 	/**
 	 * @param key string
 	 * @param step int || float
+	 * @return INT or Float the new value
 	 */
 	public function incr($key, $step = 1) {
 		if($step != 1) {
@@ -132,6 +135,7 @@ class PhpRedis {
 	/**
 	 * @param key string
 	 * @param step int
+	 * @return INT the new value
 	 */
 	public function decr($key, $step = 1) {
 		if($step == 1) {
@@ -144,6 +148,7 @@ class PhpRedis {
 
 	/**
 	 * @param key sting
+	 * @return INTEGER
 	 */
 	public function strlen($key) {
 		$result = $this->_REDIS->strlen($key);
@@ -151,7 +156,7 @@ class PhpRedis {
 	}
 
 	/**
-	 * @params key string STRING: pattern, using '*' as a wildcard.
+	 * @param key string STRING: pattern, using '*' as a wildcard.
 	 * @return Array of STRING: The keys that match a certain pattern.
 	 */
 	public function keys($key) {
@@ -168,6 +173,10 @@ class PhpRedis {
 		return $result;
 	}
 
+	/**
+	 * @param key string
+	 * @return BOOL: If the key exists, return TRUE, otherwise return FALSE.
+	 */
 	public function exists($key) {
 		$result = $this->_REDIS->exists($key);
 		return $result;
