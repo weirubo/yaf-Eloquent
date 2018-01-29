@@ -17,5 +17,7 @@ class LogController extends Yaf_Controller_Abstract {
 
 		// You can now use your logger
 		$logger->info('My logger is now ready');
+		$logger->info('Adding a new user', array('username' => 'Seldaek'));
+		$logger->info('Adding a new user', array('uid' => 1, 'username' => 'frankphper'));
 	}
 }
