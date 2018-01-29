@@ -216,4 +216,57 @@ class PhpRedis {
 	public function type($key) {
 		return $this->_REDIS->type($key);
 	}
+	
+	/**
+	 * @param key string
+	 * @param hashKey string
+	 * @param value string
+	 * @param cover int 0:no cover,1:cover
+	 */
+	public function hset($key, $hashKey, $value, $cover = 0) {
+		if($cover == 1) return $this->_REDIS->hSet($key, $hashKey, $value);
+		return $this->_REDIS->hSetNx($key, $hashKey, $value);
+	}
+
+	public function hMset($key, $member) {
+		if(is_array($member)) return $this->_REDIS->hMSet($key, $member);
+		return false;
+	}
+
+	public function hget($key, $type, $hashKey = null) {
+		if(is_null($hashKey)) {
+			switch ($type) {
+				case 2:
+					$result = $this->_REDIS->hGetAll($key);
+					break;
+				case 3:
+					$result = $this->_REDIS->hKeys($key);
+					break;
+				case 4:
+					$result = $this->_REDIS->hVals($key);
+					break;
+			}
+			return $result;
+		}
+		if(is_array($hashKey) && $type == 1) return $this->_REDIS->hMGet($key, $hashKey);
+		return $this->_REDIS->hGet($key, $hashKey);
+	}
+	
+	public function incrBy($key, $member, $value) {
+		if(is_int($value)) return $this->_REDIS->hIncrBy($key, $member, $value);
+		return $this->_REDIS->hIncrByFloat($key, $member, $value);
+	}
+
+	public function hdel($key, $hashKey) {
+		return $this->_REDIS->hDel($key, $hashKey);
+	}
+
+	public function hlen($key, $field = null) {
+		if(is_null($field)) return $this->_REDIS->hLen($key);
+		return $this->_REDIS->hStrLen($key, $field);
+	}
+
+	public function hexists($key, $memberKey) {
+		return $this->_REDIS($key, $memberKey);
+	}
 }
