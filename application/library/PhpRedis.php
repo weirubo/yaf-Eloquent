@@ -301,4 +301,37 @@ class PhpRedis {
 		if($type) return $this->_REDIS->brPop($keys, $timeout);
 		return $this->_REDIS->blPop($keys, $timeout);
 	}
+	
+	public function rpoplpush($srckey, $dstkey, $timeout) {
+		if(isset($timeout)) return $this->_REDIS->bRPopLPush($srckey, $dstkey, $timeout);
+		return $this->_REDIS->rPopLPush($srckey, $dstkey);
+	}
+
+	public function lindex($key, $index) {
+		return $this->_REDIS->lGet($key, $index);
+	}
+
+	public function linsert($key, $position, $pivot, $value) {
+		return $this->_REDIS->lInsert($key, $position, $pivot, $value);	
+	}
+
+	public function lrange($key, $start, $end) {
+		return $this->_REDIS->lRange($key, $start, $end);
+	}
+
+	public function lrem($key, $value, $count) {
+		return $this->_REDIS->lRem($key, $value, $count);
+	}
+
+	public function lset($key, $index, $value) {
+		return $this->_REDIS->lSet($key, $index, $value);
+	}
+
+	public function listtrim($key, $start, $stop) {
+		return $this->_REDIS($key, $start, $stop);
+	}
+
+	public function llen($key) {
+		return $this->_REDIS->lSize($key);
+	}
 }
