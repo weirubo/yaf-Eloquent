@@ -269,4 +269,20 @@ class PhpRedis {
 	public function hexists($key, $memberKey) {
 		return $this->_REDIS($key, $memberKey);
 	}
+	
+	/**
+	 * @param key string
+	 * @param value string
+	 * @param type int 0:rpush,1:lpush default:lpush
+	 * @param exists int 0:rpushx || lpushx,1:rpush || lpush default:rpush || lpush
+	 * @return LONG The new length of the list in case of success, FALSE in case of Failure.
+	 **/
+	public function listpush($key, $value, $type = 0, $exists = 0) {
+		if($type) {
+			if($exists) return $this->_REDIS->rPushx($key, $value);
+			return $this->_REDIS->rPush($key, $value);
+		}
+		if($exists) return $this->_REDIS->lPushx($key, $value);
+		return $this->_REDIS->lPush($key, $value);
+	}
 }
