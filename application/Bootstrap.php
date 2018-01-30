@@ -11,6 +11,10 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 	public function _initVendor() {
 		Yaf_Loader::import(APP_PATH . "/vendor/autoload.php");
 	}
+	
+	public function _initFunction() {
+		Yaf_Loader::import("Function.php");
+	}
 
         public function _initConfig() {
                 $this->config = Yaf_Application::app()->getConfig();
@@ -40,6 +44,7 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 
 		class_alias('\Illuminate\Database\Capsule\Manager', 'DB');
 	}
+
 	public function _initPlugin(Yaf_Dispatcher $dispatcher) {
 		$default = new defaultPlugin();
 		$dispatcher->registerPlugin($default);
