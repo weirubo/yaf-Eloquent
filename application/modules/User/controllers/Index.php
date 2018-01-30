@@ -11,6 +11,11 @@ class IndexController extends Yaf_Controller_Abstract {
 		$_SESSION['sex'] = 'man';
 		var_dump($_SESSION);
 	}
+
+	public function testFuncAction() {
+		$result = jsonResult(200, 'success', ['id' => 1, 'name' => 'frank']);
+		echo $result;
+	}
 	// redis
 	public function setRedisAction() {
 		$params = $this->getRequest()->getParams();
