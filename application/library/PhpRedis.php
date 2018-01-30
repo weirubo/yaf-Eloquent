@@ -285,4 +285,20 @@ class PhpRedis {
 		if($exists) return $this->_REDIS->lPushx($key, $value);
 		return $this->_REDIS->lPush($key, $value);
 	}
+	
+	public function listpop($key, $type = 0) {
+		if($type) return $this->_REDIS->rPop($key);
+		return $this->_REDIS->lPop($key);
+	}
+	
+	/**
+	 * @param keys array
+	 * @param timeout int
+	 * @param type int 0:blPop,1:brPop default:blPop
+	 * @return ARRAY array('listName', 'element')
+	 */
+	public function listbpop($keys = [], $timeout, $type = 0) {
+		if($type) return $this->_REDIS->brPop($keys, $timeout);
+		return $this->_REDIS->blPop($keys, $timeout);
+	}
 }
