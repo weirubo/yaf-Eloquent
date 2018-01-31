@@ -3,7 +3,7 @@ class BaseController extends Yaf_Controller_Abstract {
 	public function init() {
 		Yaf_Dispatcher::getInstance()->disableView();
 		// 密钥验证，如果需要使用请去掉注释开启验证
-		// $this->checkRequest();
+		$this->checkRequest();
 	}
 	
 	/**
@@ -15,7 +15,7 @@ class BaseController extends Yaf_Controller_Abstract {
 		// 时效性验证
 		$time = $params['time'];
 		$valiTime = time() - $time;
-		if($valiTime > 60) exit('timeout');
+		if($valiTime > 60) jsonResult(403, 'timeout', []);
 
 		// 密钥验证
 		$secretKey = $params['secretKey'];
@@ -32,6 +32,6 @@ class BaseController extends Yaf_Controller_Abstract {
 		$saltKey = $configArr['saltKey'];
 		// 生成密钥
 		$makeSecret = md5($requestUrl . '/saltKey/' . $saltKey);
-		if($makeSecret != $secretKey) exit('secret error');
+		if($makeSecret != $secretKey) jsonResult(401, 'Unauthorized', []);
 	}
 } 
