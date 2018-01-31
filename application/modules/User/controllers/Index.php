@@ -1,15 +1,16 @@
 <?php
 use App\Models\User;
 
-class IndexController extends Yaf_Controller_Abstract {
-	public function init() {
-		Yaf_Dispatcher::getInstance()->disableView();
-	}
+class IndexController extends BaseController {
 	// session
 	public function testSessionAction() {
 		session_start();
 		$_SESSION['sex'] = 'man';
 		var_dump($_SESSION);
+	}
+	
+	public function testValiAction() {
+		echo 123;		
 	}
 
 	public function testFuncAction() {
