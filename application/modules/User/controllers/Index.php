@@ -15,7 +15,6 @@ class IndexController extends BaseController {
 
 	public function testFuncAction() {
 		$result = jsonResult(200, 'success', ['id' => 1, 'name' => 'frank']);
-		echo $result;
 	}
 	// redis
 	public function setRedisAction() {
