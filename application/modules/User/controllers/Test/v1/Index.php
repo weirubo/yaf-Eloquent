@@ -1,7 +1,7 @@
 <?php
 use App\Models\User;
 
-class IndexController extends BaseController {
+class Test_V1_IndexController extends BaseController {
 	// session
 	public function testSessionAction() {
 		session_start();
