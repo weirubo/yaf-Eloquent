@@ -46,15 +46,17 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 		$controller = $requestArr[2] . '_' . $version . '_' . $requestArr[3];
 		$action = $requestArr[4];
 		$params = array_slice($requestArr, 5);
-		$paramsArr = [];
+		$keysArr = [];
+		$valsArr = [];
 		foreach($params as $k => $v) {
-			if($k < count($params) - 1) array_push($paramsArr, [$params[$k] => $params[$k+1]]);
+			if($k % 2 == 0) {
+				array_push($keysArr, $v);
+			} else {
+				array_push($valsArr, $v);
+			}
 		}
-		foreach($paramsArr as $k1 => $v1) {
-			if($k1 % 2 != 0) unset($paramsArr[$k1]);
-		}
-		$paramsVal = array_values($paramsArr);
-		$request = new Yaf_Request_Simple($method, $module, $controller, $action, $paramsVal);
+		$paramsArr = array_combine($keysArr, $valsArr);
+		$request = new Yaf_Request_Simple($method, $module, $controller, $action, $paramsArr);
 		$dispatcher->setRequest($request);
 	}
 
