@@ -31,6 +31,12 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 		}
 	}
 
+	/**
+	 * 自定义路由规则 参考RESTFul设计规则，实现支持版本号
+	 * 路由格式：api.github.com/版本号/模块/分组/Controller/Action/参数key1/参数value1/参数key2/参数value2
+	 * 示例：http://localhost/v1/User/Profile/Full/index/uid/1/username/admin/salary/10000
+	 * 注意：版本号、模块、分组、Controller、Action，均需必填且严格要求顺序规则
+	 */
 	public function _initRoute(Yaf_Dispatcher $dispatcher) {
 		$method = $dispatcher->getRequest()->getMethod();
 		$requestUri = $_SERVER['REQUEST_URI'];
