@@ -31,6 +31,27 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 		}
 	}
 
+	public function _initRoute(Yaf_Dispatcher $dispatcher) {
+		$method = $dispatcher->getRequest()->getMethod();
+		$requestUri = $_SERVER['REQUEST_URI'];
+		$requestArr = explode('/', ltrim($requestUri, '/'));
+		$version = $requestArr[0];
+		$module = $requestArr[1];
+		$controller = $requestArr[2] . '_' . $version . '_' . $requestArr[3];
+		$action = $requestArr[4];
+		$params = array_slice($requestArr, 5);
+		$paramsArr = [];
+		foreach($params as $k => $v) {
+			if($k < count($params) - 1) array_push($paramsArr, [$params[$k] => $params[$k+1]]);
+		}
+		foreach($paramsArr as $k1 => $v1) {
+			if($k1 % 2 != 0) unset($paramsArr[$k1]);
+		}
+		$paramsVal = array_values($paramsArr);
+		$request = new Yaf_Request_Simple($method, $module, $controller, $action, $paramsVal);
+		$dispatcher->setRequest($request);
+	}
+
         public function _initDefaultName(Yaf_Dispatcher $dispatcher) {
                 $dispatcher->setDefaultModule("Index")->setDefaultController("Index")->setDefaultAction("index");
         }
