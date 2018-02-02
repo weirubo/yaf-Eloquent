@@ -1,7 +1,6 @@
 <?php
 class BaseController extends Yaf_Controller_Abstract {
 	public function init() {
-		Yaf_Dispatcher::getInstance()->disableView();
 		// 密钥验证，如果需要使用请去掉注释开启验证
 		// $this->checkRequest();
 	}

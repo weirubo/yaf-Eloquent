@@ -4,6 +4,9 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 
 class Test_V1_LogController extends Yaf_Controller_Abstract {
+	public function init() {
+		Yaf_Dispatcher::getInstance()->disableView();
+	}
 	public function indexAction() {
 		// Create the logger
 		$logger = new Logger('my_logger');

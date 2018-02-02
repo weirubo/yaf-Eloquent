@@ -2,6 +2,10 @@
 use App\Models\User;
 
 class Test_V1_IndexController extends BaseController {
+	public function init() {
+		Yaf_Dispatcher::getInstance()->disableView();
+		parent::init();
+	}
 	// session
 	public function testSessionAction() {
 		session_start();
