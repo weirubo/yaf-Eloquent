@@ -124,6 +124,37 @@ class Test_V1_IndexController extends BaseController {
 		$result = $redis->hget($params['key'], $params['type'], $params['hashKey']);
 		var_dump($result);
 	}
+	public function saddRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->sadd($params['key'], $params['member']);
+		echo $result;
+	}
+	public function scardRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->scard($params['key']);
+		echo $result;
+	}
+	public function sdiffRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		// $result = $redis->sdiff($params['key']);
+		$result = $redis->sdiff(['k1', 'k2']);
+		var_dump($result);
+	}
+	public function smembersRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->smembers($params['key']);
+		var_dump($result);
+	}
+	public function sismemberRedisAction() {
+		$params = $this->getRequest()->getParams();
+		$redis = new PhpRedis();
+		$result = $redis->sismember($params['key'], $params['member']);
+		echo $result;
+	}
 	// 运行原生SQL查询
 	public function selectAction() {
 		$users = DB::select('select * from user where id=1');

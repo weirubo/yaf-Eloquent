@@ -334,4 +334,24 @@ class PhpRedis {
 	public function llen($key) {
 		return $this->_REDIS->lSize($key);
 	}
+	
+	public function sadd($key, $member) {
+		return $this->_REDIS->sAdd($key, $member);
+	}
+
+	public function scard($key) {
+		return $this->_REDIS->sCard($key);
+	}
+
+	public function sdiff($key) {
+		return $this->_REDIS->sDiff($key);
+	}
+	
+	public function smembers($key) {
+		return $this->_REDIS->sMembers($key);
+	}
+	
+	public function sismember($key, $member) {
+		return $this->_REDIS->sIsMember($key, $member);	
+	}
 }
