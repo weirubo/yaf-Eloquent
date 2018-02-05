@@ -346,7 +346,11 @@ class PhpRedis {
 		return $this->_REDIS->sAdd($key, $value);
 	}
 
-	public function scard($key) {
+	public function scard($key, $type = 0, $start = 0, $end = 0) {
+		if($type) {
+			if($end != 0) return $this->_REDIS->zCount($key, $end);
+			return $this->_REDIS->zSize($key);
+		}
 		return $this->_REDIS->sCard($key);
 	}
 
@@ -363,5 +367,33 @@ class PhpRedis {
 	
 	public function sismember($key, $member) {
 		return $this->_REDIS->sIsMember($key, $member);	
+	}
+
+	public function sinter($keys, $key = null) {
+		if(is_array($keys) && count($keys)) {
+			if(isset($key)) return $this->_REDIS->sInterStore($key, $keys);
+			return $this->_REDIS->sInter($keys);
+		}	
+	}
+
+	public function smove($srcKey, $dstKey, $member) {
+		return $this->_REDIS->sMove($srcKey, $dstKey, $member);
+	}
+
+	public function spop($key, $count = 1, $remove = 0) {
+		if($remove) return $this->_REDIS->sPop($key, $count);
+		return $this->_REDIS->sRandMember($key, $count);
+	}
+
+	public function srem($key, $member, $type = 0) {
+		if($type) return $this->_REDIS->zRem($key, $member);
+		return $this->_REDIS->sRem($key, $member);
+	}
+
+	public function sunion($keys, $key = null) {
+		if(is_array($keys) && count($keys)) {
+			if(is_null($key)) return $this->_REDIS->sUnion($keys);
+			return $this->_REDIS->sUnionStore($keys, $key);
+		}
 	}
 }
