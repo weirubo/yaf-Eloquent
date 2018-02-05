@@ -335,16 +335,26 @@ class PhpRedis {
 		return $this->_REDIS->lSize($key);
 	}
 	
-	public function sadd($key, $member) {
-		return $this->_REDIS->sAdd($key, $member);
+	/**
+	 * @param key string
+	 * @param score int || double
+	 * @param member string
+	 * @return LONG the number of elements added to the set.
+	 */
+	public function sadd($key, $value, $score = null) {
+		if($score) return $this->_REDIS->zAdd($key, $score, $value);
+		return $this->_REDIS->sAdd($key, $value);
 	}
 
 	public function scard($key) {
 		return $this->_REDIS->sCard($key);
 	}
 
-	public function sdiff($key) {
-		return $this->_REDIS->sDiff($key);
+	public function sdiff($keys, $key = null) {
+		if(is_array($keys) && count($keys)) {
+			if(isset($key)) return $this->_REDIS->sDiffStore($key, $keys);
+			return $this->_REDIS->sDiff($key);
+		}
 	}
 	
 	public function smembers($key) {

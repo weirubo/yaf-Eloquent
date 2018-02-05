@@ -139,15 +139,16 @@ class Test_V1_IndexController extends BaseController {
 	public function sdiffRedisAction() {
 		$params = $this->getRequest()->getParams();
 		$redis = new PhpRedis();
-		// $result = $redis->sdiff($params['key']);
-		$result = $redis->sdiff(['k1', 'k2']);
-		var_dump($result);
+		$result = $redis->sdiff($params);
+		echo "<pre>";
+		print_r($result);
 	}
 	public function smembersRedisAction() {
 		$params = $this->getRequest()->getParams();
 		$redis = new PhpRedis();
 		$result = $redis->smembers($params['key']);
-		var_dump($result);
+		echo "<pre>";
+		print_r($result);
 	}
 	public function sismemberRedisAction() {
 		$params = $this->getRequest()->getParams();
