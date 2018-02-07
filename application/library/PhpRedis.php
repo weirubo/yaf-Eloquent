@@ -216,4 +216,188 @@ class PhpRedis {
 	public function type($key) {
 		return $this->_REDIS->type($key);
 	}
+	
+	/**
+	 * @param key string
+	 * @param hashKey string
+	 * @param value string
+	 * @param cover int 0:no cover,1:cover
+	 */
+	public function hset($key, $hashKey, $value, $cover = 0) {
+		if($cover == 1) return $this->_REDIS->hSet($key, $hashKey, $value);
+		return $this->_REDIS->hSetNx($key, $hashKey, $value);
+	}
+
+	public function hMset($key, $member) {
+		if(is_array($member)) return $this->_REDIS->hMSet($key, $member);
+		return false;
+	}
+
+	public function hget($key, $type, $hashKey = null) {
+		if(is_null($hashKey)) {
+			switch ($type) {
+				case 2:
+					$result = $this->_REDIS->hGetAll($key);
+					break;
+				case 3:
+					$result = $this->_REDIS->hKeys($key);
+					break;
+				case 4:
+					$result = $this->_REDIS->hVals($key);
+					break;
+			}
+			return $result;
+		}
+		if(is_array($hashKey) && $type == 1) return $this->_REDIS->hMGet($key, $hashKey);
+		return $this->_REDIS->hGet($key, $hashKey);
+	}
+	
+	public function incrBy($key, $member, $value) {
+		if(is_int($value)) return $this->_REDIS->hIncrBy($key, $member, $value);
+		return $this->_REDIS->hIncrByFloat($key, $member, $value);
+	}
+
+	public function hdel($key, $hashKey) {
+		return $this->_REDIS->hDel($key, $hashKey);
+	}
+
+	public function hlen($key, $field = null) {
+		if(is_null($field)) return $this->_REDIS->hLen($key);
+		return $this->_REDIS->hStrLen($key, $field);
+	}
+
+	public function hexists($key, $memberKey) {
+		return $this->_REDIS($key, $memberKey);
+	}
+	
+	/**
+	 * @param key string
+	 * @param value string
+	 * @param type int 0:rpush,1:lpush default:lpush
+	 * @param exists int 0:rpushx || lpushx,1:rpush || lpush default:rpush || lpush
+	 * @return LONG The new length of the list in case of success, FALSE in case of Failure.
+	 **/
+	public function listpush($key, $value, $type = 0, $exists = 0) {
+		if($type) {
+			if($exists) return $this->_REDIS->rPushx($key, $value);
+			return $this->_REDIS->rPush($key, $value);
+		}
+		if($exists) return $this->_REDIS->lPushx($key, $value);
+		return $this->_REDIS->lPush($key, $value);
+	}
+	
+	public function listpop($key, $type = 0) {
+		if($type) return $this->_REDIS->rPop($key);
+		return $this->_REDIS->lPop($key);
+	}
+	
+	/**
+	 * @param keys array
+	 * @param timeout int
+	 * @param type int 0:blPop,1:brPop default:blPop
+	 * @return ARRAY array('listName', 'element')
+	 */
+	public function listbpop($keys = [], $timeout, $type = 0) {
+		if($type) return $this->_REDIS->brPop($keys, $timeout);
+		return $this->_REDIS->blPop($keys, $timeout);
+	}
+	
+	public function rpoplpush($srckey, $dstkey, $timeout) {
+		if(isset($timeout)) return $this->_REDIS->bRPopLPush($srckey, $dstkey, $timeout);
+		return $this->_REDIS->rPopLPush($srckey, $dstkey);
+	}
+
+	public function lindex($key, $index) {
+		return $this->_REDIS->lGet($key, $index);
+	}
+
+	public function linsert($key, $position, $pivot, $value) {
+		return $this->_REDIS->lInsert($key, $position, $pivot, $value);	
+	}
+
+	public function lrange($key, $start, $end) {
+		return $this->_REDIS->lRange($key, $start, $end);
+	}
+
+	public function lrem($key, $value, $count) {
+		return $this->_REDIS->lRem($key, $value, $count);
+	}
+
+	public function lset($key, $index, $value) {
+		return $this->_REDIS->lSet($key, $index, $value);
+	}
+
+	public function listtrim($key, $start, $stop) {
+		return $this->_REDIS($key, $start, $stop);
+	}
+
+	public function llen($key) {
+		return $this->_REDIS->lSize($key);
+	}
+	
+	/**
+	 * @param key string
+	 * @param score int || double
+	 * @param member string
+	 * @return LONG the number of elements added to the set.
+	 */
+	public function sadd($key, $value, $score = null) {
+		if($score) return $this->_REDIS->zAdd($key, $score, $value);
+		return $this->_REDIS->sAdd($key, $value);
+	}
+
+	public function scard($key, $type = 0, $start = 0, $end = 0) {
+		if($type) {
+			if($end != 0) return $this->_REDIS->zCount($key, $end);
+			return $this->_REDIS->zSize($key);
+		}
+		return $this->_REDIS->sCard($key);
+	}
+
+	public function sdiff($keys, $key = null) {
+		if(is_array($keys) && count($keys)) {
+			if(isset($key)) return $this->_REDIS->sDiffStore($key, $keys);
+			return $this->_REDIS->sDiff($key);
+		}
+	}
+	
+	public function smembers($key) {
+		return $this->_REDIS->sMembers($key);
+	}
+	
+	public function sismember($key, $member) {
+		return $this->_REDIS->sIsMember($key, $member);	
+	}
+
+	public function sinter($keys, $key = null) {
+		if(is_array($keys) && count($keys)) {
+			if(isset($key)) return $this->_REDIS->sInterStore($key, $keys);
+			return $this->_REDIS->sInter($keys);
+		}	
+	}
+
+	public function smove($srcKey, $dstKey, $member) {
+		return $this->_REDIS->sMove($srcKey, $dstKey, $member);
+	}
+
+	public function spop($key, $count = 1, $remove = 0) {
+		if($remove) return $this->_REDIS->sPop($key, $count);
+		return $this->_REDIS->sRandMember($key, $count);
+	}
+
+	public function srem($key, $member, $type = 0) {
+		if($type) return $this->_REDIS->zRem($key, $member);
+		return $this->_REDIS->sRem($key, $member);
+	}
+
+	public function sunion($keys, $key = null) {
+		if(is_array($keys) && count($keys)) {
+			if(is_null($key)) return $this->_REDIS->sUnion($keys);
+			return $this->_REDIS->sUnionStore($keys, $key);
+		}
+	}
+
+	public function zincrby($key, $value, $member) {
+		return $this->_REDIS->zIncrBy($key, $value, $member);
+	}
 }

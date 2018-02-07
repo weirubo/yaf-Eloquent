@@ -11,6 +11,10 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 	public function _initVendor() {
 		Yaf_Loader::import(APP_PATH . "/vendor/autoload.php");
 	}
+	
+	public function _initFunction() {
+		Yaf_Loader::import("Function.php");
+	}
 
         public function _initConfig() {
                 $this->config = Yaf_Application::app()->getConfig();
@@ -27,6 +31,35 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 		}
 	}
 
+	/**
+	 * 自定义路由规则 参考RESTFul设计规则，实现支持版本号
+	 * 路由格式：api.github.com/版本号/模块/分组/Controller/Action/参数key1/参数value1/参数key2/参数value2
+	 * 示例：http://localhost/v1/User/Profile/Full/index/uid/1/username/admin/salary/10000
+	 * 注意：版本号、模块、分组、Controller、Action，均为必选参数且需严格按照顺序规则
+	 */
+	public function _initRoute(Yaf_Dispatcher $dispatcher) {
+		$method = $dispatcher->getRequest()->getMethod();
+		$requestUri = $_SERVER['REQUEST_URI'];
+		$requestArr = explode('/', ltrim($requestUri, '/'));
+		$version = $requestArr[0];
+		$module = $requestArr[1];
+		$controller = $requestArr[2] . '_' . $version . '_' . $requestArr[3];
+		$action = $requestArr[4];
+		$params = array_slice($requestArr, 5);
+		$keysArr = [];
+		$valsArr = [];
+		foreach($params as $k => $v) {
+			if($k % 2 == 0) {
+				array_push($keysArr, $v);
+			} else {
+				array_push($valsArr, $v);
+			}
+		}
+		$paramsArr = array_combine($keysArr, $valsArr);
+		$request = new Yaf_Request_Simple($method, $module, $controller, $action, $paramsArr);
+		$dispatcher->setRequest($request);
+	}
+
         public function _initDefaultName(Yaf_Dispatcher $dispatcher) {
                 $dispatcher->setDefaultModule("Index")->setDefaultController("Index")->setDefaultAction("index");
         }
@@ -40,6 +73,7 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 
 		class_alias('\Illuminate\Database\Capsule\Manager', 'DB');
 	}
+
 	public function _initPlugin(Yaf_Dispatcher $dispatcher) {
 		$default = new defaultPlugin();
 		$dispatcher->registerPlugin($default);
