@@ -396,4 +396,8 @@ class PhpRedis {
 			return $this->_REDIS->sUnionStore($keys, $key);
 		}
 	}
+
+	public function zincrby($key, $value, $member) {
+		return $this->_REDIS->zIncrBy($key, $value, $member);
+	}
 }
