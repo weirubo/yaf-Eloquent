@@ -1,0 +1,6 @@
+[2018-01-27 14:40:06] my_logger.INFO: My logger is now ready [] []
+[2018-01-28 11:44:54] my_logger.INFO: My logger is now ready [] []
+[2018-01-28 11:44:54] my_logger.INFO: Adding a new user {"username":"Seldaek"} []
+[2018-01-28 11:46:02] my_logger.INFO: My logger is now ready [] []
+[2018-01-28 11:46:02] my_logger.INFO: Adding a new user {"username":"Seldaek"} []
+[2018-01-28 11:46:02] my_logger.INFO: Adding a new user {"uid":1,"username":"frankphper"} []
