@@ -46,13 +46,11 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 		$controller = $requestArr[2] . '_' . $version . '_' . $requestArr[3];
 		$action = $requestArr[4];
 		$params = array_slice($requestArr, 5);
-		$keysArr = [];
-		$valsArr = [];
 		foreach($params as $k => $v) {
 			if($k % 2 == 0) {
-				array_push($keysArr, $v);
+				$keysArr[] = $v;
 			} else {
-				array_push($valsArr, $v);
+				$valsArr[] = $v;
 			}
 		}
 		$paramsArr = array_combine($keysArr, $valsArr);
