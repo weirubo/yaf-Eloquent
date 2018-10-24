@@ -1,8 +1,8 @@
 {
 	"require": {
 		"php": ">=7.1.7",
-		"illuminate/database": "5.5.*",
-		"illuminate/events": "5.5.*",
+		"illuminate/database": "^5.7",
+		"illuminate/events": "^5.7",
 		"monolog/monolog": "1.23.*"
 	},
 	"autoload": {
