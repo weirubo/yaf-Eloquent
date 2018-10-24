@@ -1,21 +1,21 @@
 <?php
-class defaultPlugin extends Yaf_Plugin_Abstract {
-	public function routerStartup(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response) {
+class defaultPlugin extends Yaf\Plugin_Abstract {
+	public function routerStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
 
 	}
-	public function routerShutdown(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response) {
+	public function routerShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
 
 	}
-	public function dispatchLoopStartup(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response) {
+	public function dispatchLoopStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
 
 	}
-	public function preDispatch(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response) {
+	public function preDispatch(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
 
 	}
-	public function postDispatch(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response) {
+	public function postDispatch(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
 
 	}
-	public function dispatchLoopShutdown(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response) {
+	public function dispatchLoopShutdown(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
 
 	}
 }

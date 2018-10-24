@@ -1,5 +1,5 @@
 <?php
-class BaseController extends Yaf_Controller_Abstract {
+class BaseController extends Yaf\Controller_Abstract {
 	public function init() {
 		// 密钥验证，如果需要使用请去掉注释开启验证
 		// $this->checkRequest();

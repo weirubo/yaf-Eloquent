@@ -3,7 +3,7 @@ use App\Models\User;
 
 class Test_V1_IndexController extends BaseController {
 	public function init() {
-		Yaf_Dispatcher::getInstance()->disableView();
+		Yaf\Dispatcher::getInstance()->disableView();
 		parent::init();
 	}
 	// session
@@ -13,7 +13,7 @@ class Test_V1_IndexController extends BaseController {
 		var_dump($_SESSION);
 	}
 	
-	public function testValiAction() {
+	public function testValAction() {
 		echo 123;		
 	}
 
@@ -213,10 +213,16 @@ class Test_V1_IndexController extends BaseController {
 	public function saveUpdateAction() {
 		$user = User::find(1);
 		$user->age = 28;
-		$user->save();
+		$rst = $user->save();
+		echo $rst;
 	}
 	// 批量更新
 	public function updateAction() {
 		User::where('age', 28)->update(['name' => 'frankphper']);
 	}
+	// 软删除
+    public function deleteAction() {
+	    $rows = User::where('id', 3)->delete();
+	    echo $rows;
+    }
 }
