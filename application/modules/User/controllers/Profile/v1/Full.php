@@ -1,7 +1,7 @@
 <?php
 class Profile_V1_FullController extends BaseController {
 	public function init() {
-		Yaf_Dispatcher::getInstance()->disableView();
+		Yaf\Dispatcher::getInstance()->disableView();
 		parent::init();
 	}
 	public function indexAction() {
