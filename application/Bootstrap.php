@@ -56,6 +56,9 @@ class Bootstrap extends Bootstrap_Abstract
     {
         $method = $dispatcher->getRequest()->getMethod();
         $requestUri = $_SERVER['REQUEST_URI'];
+        if($requestUri == '/') {
+            return false;
+        }
         $requestArr = explode('/', ltrim($requestUri, '/'));
         $version = $requestArr[0];
         $module = $requestArr[1];
@@ -86,12 +89,7 @@ class Bootstrap extends Bootstrap_Abstract
         }
         $dispatcher->setRequest($request);
     }
-
-    public function _initDefaultName(Dispatcher $dispatcher)
-    {
-        $dispatcher->setDefaultModule("Index")->setDefaultController("Index")->setDefaultAction("index");
-    }
-	
+    
 	public function _initDefaultDb()
     {
 		$capsule = new Manager;
