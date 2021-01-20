@@ -181,7 +181,7 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v5.7.6",
+            "version": "v6.20.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
